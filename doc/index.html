@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Supermoon</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><strong>supermoon.table</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>supermoon.table</code></h1>
+<p>A library for working with table values</p>
+<p>
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#deepcopy">deepcopy (x)</a></td>
+	<td class="summary">Performs a copy of all keyvalues.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#filter">filter (source, callback)</a></td>
+	<td class="summary">Create a table that only contains keyvalues that satisfy criteria
+  implemented by a callback.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#filtersequence">filtersequence (source, callback)</a></td>
+	<td class="summary">Create a sequence that only contains values that satisfy criteria
+  implemented by a callback.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#issequential">issequential (x)</a></td>
+	<td class="summary">Determines if a given table is a proper sequence without intermediary <code>nil</code>
+  values.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#merge">merge (target, ...)</a></td>
+	<td class="summary">Overwrite the keyvalues on the target table with the keyvalues from the
+  source tables.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#shallowcopy">shallowcopy (x)</a></td>
+	<td class="summary">Performs a shallow copy of all keyvalues.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "deepcopy"></a>
+    <strong>deepcopy (x)</strong>
+    </dt>
+    <dd>
+    Performs a copy of all keyvalues.  Table values are recursively copied.</p>
+
+<p>  As a consequence of the above, this function is slower than <a href="index.html#shallowcopy">shallowcopy</a>
+  but creates &ldquo;true&rdquo; copies of data &ndash; mutations to the source table will not
+  affect the copy and vice versa.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         the table to copy
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        copy of the table
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#shallowcopy">shallowcopy</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "filter"></a>
+    <strong>filter (source, callback)</strong>
+    </dt>
+    <dd>
+    Create a table that only contains keyvalues that satisfy criteria
+  implemented by a callback.  This should not be used for sequences. (see
+  <a href="index.html#filtersequence">filtersequence</a>)</p>
+
+<p>  Due to the nature of Lua, it is best to create the callback outside of
+  any function bodies whenever possible to avoid needless recreation.</p>
+
+<p>  The callback should accept a table, key, and value. It should also return
+  <code>true</code> to add the keyvalue to the resulting table, or <code>false</code> to skip it.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">source</span>
+         the table to filter
+        </li>
+        <li><span class="parameter">callback</span>
+         the function used for filtering
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the table of filtered keyvalues
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "filtersequence"></a>
+    <strong>filtersequence (source, callback)</strong>
+    </dt>
+    <dd>
+    Create a sequence that only contains values that satisfy criteria
+  implemented by a callback.  Unlike <a href="index.html#filter">filter</a>, this function iterates using
+  <a href="https://www.lua.org/manual/5.1/manual.html#pdf-ipairs">ipairs</a> and <em>appends</em> values to a resulting table.</p>
+
+<p>  Due to the nature of Lua, it is best to create the callback outside of
+  any function bodies whenever possible to avoid needless recreation.</p>
+
+<p>  The callback should accept a table, key, and value. It should also return
+  <code>true</code> to append the value to the resulting table, or <code>false</code> to skip it.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">source</span>
+         the table to filter
+        </li>
+        <li><span class="parameter">callback</span>
+         the function used for filtering
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        the table of filtered keyvalues</li>
+        <li>
+        the filtered table length</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "issequential"></a>
+    <strong>issequential (x)</strong>
+    </dt>
+    <dd>
+    Determines if a given table is a proper sequence without intermediary <code>nil</code>
+  values. </p>
+
+<p>  This function exists because using <code>#</code> or <a href="https://www.lua.org/manual/5.1/manual.html#pdf-ipairs">ipairs</a> on a table with
+  intermediary <code>nil</code> values yields undefined results.</p>
+
+<p>  The solution relies on these properties:
+  <em> Empty tables are always proper sequences.
+  </em> In order for a table to be a proper sequence, there must be no integer
+  index between 1 and the length of the table associated with <code>nil</code>.
+  * <a href="https://www.lua.org/manual/5.1/manual.html#pdf-pairs">pairs</a> is guaranteed to iterate through every keyvalue in the table,
+  just out of order.</p>
+
+<p>  Thus, we simply count the iterations and use the iteration count to index
+  the table. If at any point during the loop <code>nil</code> is encountered, we know
+  that the table is not a proper sequence.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         the table to check
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        <code>true</code> (the table is a sequence)</li>
+        <li>
+        the length of the table</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <code>false</code> (the table is not a sequence)</li>
+        <li>
+        the index associated with a nil value</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "merge"></a>
+    <strong>merge (target, ...)</strong>
+    </dt>
+    <dd>
+    <p>Overwrite the keyvalues on the target table with the keyvalues from the
+  source tables.  Tables values contained within any of the source tables
+  are not recursed.</p>
+
+<p>  If you do not wish to destroy data in any tables used as the source, you
+  may consider using an empty table as the first argument.</p>
+
+<p>  Furthermore, wrapping the call to <a href="index.html#merge">merge</a> with a call to <a href="index.html#deepcopy">deepcopy</a>
+  effectively makes it a &ldquo;deep merge&rdquo;, although one must remember that the
+  first argument is to <a href="index.html#merge">merge</a> is still necessarily mutated.</p>
+
+<p>  This table will loop through all tables given as varargs. The varargs
+  should be treated as being organized in from least precedence to highest
+  precedence, as the last table is used to write the final values to the
+  table:</p>
+
+<pre><code>table.merge {a: 1, b: 2, c: 3}, {b: 4, c: 5}, {c: 6}
+-- result: {a: 1, b: 4, c: 6}
+</code></pre>
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">target</span>
+         the table to merge data into
+        </li>
+        <li><span class="parameter">...</span>
+         tables to merge into x (ordered with increasing precedence)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the target table
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "shallowcopy"></a>
+    <strong>shallowcopy (x)</strong>
+    </dt>
+    <dd>
+    Performs a shallow copy of all keyvalues.  Table values are not recursively
+  copied.</p>
+
+<p>  As a consequence of the above, table values will be shared between the
+  source table and its copy. This may be inappropriate in cases where
+  modifications should not be shared. In these cases, you will want to use
+  <a href="index.html#deepcopy">deepcopy</a>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         the table to copy
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        copy of the table
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#deepcopy">deepcopy</a>
+    </ul>
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2022-10-10 21:14:23 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
